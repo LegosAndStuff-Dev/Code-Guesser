@@ -1,34 +1,18 @@
 import random
 
-code = [random.randint(0, 9), random.randint(0, 9), random.randint(0,9), random.randint(0,9)]
-code = [1, 1, 1, 1]
+code = [random.randint(1, 9), random.randint(1, 9), random.randint(1,9), random.randint(1,9)]
 CurrentCode = [0, 0, 0, 0]
 userCode = [0, 0, 0, 0]
 
-def checkCode(place1, place2, place3, place4):
-    check = 0
+GameRunning = True
 
-    if place1 == code[0]:
-        check += 1
-        CurrentCode[0] = code[0]
-
-    if place2 == code[1]:
-        check += 1
-        CurrentCode[1] = code[1]
-
-    if place3 == code[2]:
-        check += 1
-        CurrentCode[2] = code[2]
-
-    if place4 == code[3]:
-        check += 1
-        CurrentCode[3] = code[3]
-
-    if check == 4:
-        return True
-
+def checkCode(slot):
+    userInput = userCode[slot]
+    if userInput == code[slot]:
+        CurrentCode[slot] = code[slot]
+    
     else:
-        return False
+        pass
 
 print("                               Code Guesser                               ")
 print("")
@@ -36,15 +20,30 @@ print("------------------------------- Directions ------------------------------
 print()
 print("1) You have to guess the 4 diget code")
 print("2) It will show when you have the digets correct and which ones are correct")
-print("\n\n")
+print("\n")
 
 
-while checkCode(userCode[0], userCode[1], userCode[2], userCode[3]) == False:
-    userCode[0] == int(input("Enter the first diget of the code (0 - 9): "))
-    userCode[1] == int(input("Enter the second diget of the code (0 - 9): "))
-    userCode[2] == int(input("Enter the third diget of the code (0 - 9): "))
-    userCode[3] == int(input("Enter the forth diget of the code (0 - 9): "))
+while GameRunning == True:
+    userCode[0] = int(input("Enter the first diget of the code (1 - 9): "))
+    userCode[1] = int(input("Enter the second diget of the code (1 - 9): "))
+    userCode[2] = int(input("Enter the third diget of the code (1 - 9): "))
+    userCode[3] = int(input("Enter the forth diget of the code (1 - 9): "))
 
+    checkCode(0)
+    checkCode(1)
+    checkCode(2)
+    checkCode(3)
 
+    print("\nYour Current Code:\n")
+    for i in range(len(CurrentCode)):
+        if CurrentCode[i] == 0:
+            print(" _ ", end="")
+        else:
+            print(f" {CurrentCode[i]} ", end="")
 
+    print("\n")
 
+    if CurrentCode == code:
+        GameRunning = False
+
+print("Congrats you got the code all right!")
